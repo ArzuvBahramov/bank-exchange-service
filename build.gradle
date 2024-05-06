@@ -1,0 +1,61 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.5'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.exchange'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	openApiVersion = '2.5.0'
+	mapstructVersion = '1.5.5.Final'
+	springCloudVersion = '2023.0.0'
+	jacksonVersion = '2.17.0'
+
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.flywaydb:flyway-core'
+	// Spring Cloud
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:$openApiVersion")
+	implementation ("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
+
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation("org.mapstruct:mapstruct:$mapstructVersion")
+	annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+compileJava {
+	options.compilerArgs += ['-Amapstruct.defaultComponentModel=spring']
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
