@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Transactional
 @RequiredArgsConstructor
-public class ExchangeService {
+public class ExchangeRateService {
     final ExchangeRateRepository exchangeRateRepository;
     final CentralBankApiService centralBankApiService;
     final ExchangeRateMapper exchangeRateMapper;
