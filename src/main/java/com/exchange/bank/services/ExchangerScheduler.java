@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 public class ExchangerScheduler {
-    final ExchangeService exchangeService;
+    final ExchangeRateService exchangeRateService;
 
     @Scheduled(cron = "${exchange.cron}")
     public void exchangeScheduler() {
-        exchangeService.retrieveData();
+        exchangeRateService.retrieveData();
     }
 
 }

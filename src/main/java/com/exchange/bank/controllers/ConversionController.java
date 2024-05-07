@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/conversion")
-public class ConversationController {
+public class ConversionController {
     final ConversionService conversionService;
 
     @PostMapping("/convert")
     public ResponseEntity<ConversionDto> convert(@RequestBody ConversionRequest request) {
-        return ResponseEntity.ok(conversionService.calculate(request));
+        return ResponseEntity.ok(conversionService.convert(request));
     }
 
     @GetMapping("/history/{id}")
