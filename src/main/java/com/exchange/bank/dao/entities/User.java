@@ -2,6 +2,7 @@ package com.exchange.bank.dao.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Setter
@@ -22,19 +24,23 @@ import lombok.experimental.SuperBuilder;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @SuperBuilder
 @Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 public class User extends Auditor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @Column
-    String firstName;
+    String firstname;
 
     @Column
-    String lastName;
+    String lastname;
 
     @Column
     String email;
+
+    @Column
+    String username;
 
     @Column
     String password;

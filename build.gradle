@@ -26,6 +26,7 @@ ext {
 	mapstructVersion = '1.5.5.Final'
 	springCloudVersion = '2023.0.0'
 	jacksonVersion = '2.17.0'
+	jwtVersion = '0.12.5'
 
 }
 
@@ -43,6 +44,9 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:$openApiVersion")
 	implementation ("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation ("io.jsonwebtoken:jjwt:$jwtVersion")
+	implementation ("io.jsonwebtoken:jjwt-impl:$jwtVersion")
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
