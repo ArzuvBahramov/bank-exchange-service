@@ -9,10 +9,6 @@ COPY settings.gradle .
 
 COPY src src
 
-ENV ESTCONTAINERS_HOST_OVERRIDE=host.docker.internal
-STOPSIGNAL SIGKILL
-VOLUME /var/run/docker.sock:/var/run/docker.sock
-
 RUN ./gradlew build -x test
 
 FROM openjdk:17-slim
