@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Repository
-public interface ExchangeRateRepository extends JpaRepository<ExchangeRate, Integer> {
+public interface ExchangeRateRepository extends JpaRepository<ExchangeRate, Long> {
     Set<ExchangeRate> findExchangerByRateDate(LocalDate rateDate);
     Set<ExchangeRate> findTop1ByOrderByRateDateDesc();
     Optional<ExchangeRate> findExchangerByCodeAndRateDate(String code, LocalDate rateDate);
