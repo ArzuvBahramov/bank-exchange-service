@@ -38,17 +38,21 @@ public class Conversion extends Auditor {
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "from_exchange_id")
-    private ExchangeRate fromExchange;
+    ExchangeRate fromExchange;
 
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "to_exchange_id")
-    private ExchangeRate toExchange;
+    ExchangeRate toExchange;
 
-    private LocalDate rateDate;
-
-    @Column(precision = 19, scale = 3)
-    private BigDecimal fromValue;
+    LocalDate rateDate;
 
     @Column(precision = 19, scale = 3)
-    private BigDecimal toValue;
+    BigDecimal fromValue;
+
+    @Column(precision = 19, scale = 3)
+    BigDecimal toValue;
+
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "user_id")
+    User user;
 }

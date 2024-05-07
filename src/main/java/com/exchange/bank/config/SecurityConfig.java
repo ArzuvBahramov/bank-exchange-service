@@ -29,7 +29,7 @@ public class SecurityConfig {
     final UserDetailsService userDetailsService;
     final RequestFilter requestFilter;
 
-    private static final String[] GET_WHITELIST = {
+    static final String[] GET_WHITELIST = {
             "/v1/swagger-ui/**",
             "/error"
     };
