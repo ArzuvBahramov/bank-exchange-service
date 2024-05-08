@@ -9,6 +9,8 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -27,7 +29,17 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
-    public Optional<User> getUserByUsername(String username) {
+    public Optional<User> getUserDetailsByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public Page<UserDto> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable)
+                .map(userMapper::toDto);
+    }
+
+    public UserDto getUserByUsername(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow();
+        return userMapper.toDto(user);
     }
 }

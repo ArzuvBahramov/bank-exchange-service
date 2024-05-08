@@ -47,8 +47,8 @@ public class AuthController {
     }
 
     @GetMapping(value = "/api/details")
-    public ResponseEntity<?> getDetails() throws Exception {
-        return ResponseEntity.ok("SUCCESS");
+    public ResponseEntity<?> getDetails() {
+        return ResponseEntity.ok(authService.getUserDetails());
     }
 
 }

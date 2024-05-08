@@ -48,7 +48,7 @@ public class ConversionService {
         String username = SecurityContextHolder.getContext()
                 .getAuthentication().getName();
 
-        User user = userService.getUserByUsername(username)
+        User user = userService.getUserDetailsByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("User: %s is not found".formatted(username)));
 
         ExchangeRate exchangeRateFrom = exchangeRateService.findExchangeRate(conversionRequest.currencyFro());

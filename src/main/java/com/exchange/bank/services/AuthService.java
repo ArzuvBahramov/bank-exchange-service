@@ -1,7 +1,10 @@
 package com.exchange.bank.services;
 
+import com.exchange.bank.dao.entities.User;
+import com.exchange.bank.dto.UserDto;
 import com.exchange.bank.dto.request.LoginRequest;
 import com.exchange.bank.dto.request.LoginResponse;
+import com.exchange.bank.mapper.UserMapper;
 import com.exchange.bank.security.service.AuthDetailsService;
 import com.exchange.bank.security.util.TokenUtil;
 import io.jsonwebtoken.impl.DefaultClaims;
@@ -15,6 +18,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,6 +36,8 @@ public class AuthService {
     final AuthenticationManager authenticationManager;
     final TokenUtil tokenUtil;
     final AuthDetailsService userDetailsService;
+    final UserService userService;
+    final UserMapper userMapper;
 
     @SneakyThrows
     public LoginResponse signIn(@RequestBody LoginRequest loginRequest) {
@@ -52,6 +58,13 @@ public class AuthService {
         String token = tokenUtil.doGenerateToken(expectedMap, expectedMap.get("sub").toString());
 
         return new LoginResponse(token);
+    }
+
+    public UserDto getUserDetails() {
+        String username = SecurityContextHolder.getContext()
+                .getAuthentication().getName();
+        User user = userService.getUserDetailsByUsername(username).orElseThrow();
+        return userMapper.toDto(user);
     }
 
     private void authenticate(String username, String password) throws Exception {

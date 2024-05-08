@@ -2,6 +2,7 @@ package com.exchange.bank.services;
 
 import com.exchange.bank.dto.request.LoginRequest;
 import com.exchange.bank.dto.request.LoginResponse;
+import com.exchange.bank.mapper.UserMapper;
 import com.exchange.bank.security.service.AuthDetailsService;
 import com.exchange.bank.security.util.TokenUtil;
 import io.jsonwebtoken.Claims;
@@ -34,6 +35,10 @@ public class AuthServiceTest {
     private TokenUtil tokenUtil;
     @MockBean
     private AuthDetailsService userDetailsService;
+    @MockBean
+    private UserService userService;
+    @MockBean
+    private UserMapper userMapper;
 
     @Test
     public void testSignIn() {
