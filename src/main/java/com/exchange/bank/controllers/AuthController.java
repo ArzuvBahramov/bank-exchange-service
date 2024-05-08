@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@CrossOrigin
+@CrossOrigin(maxAge = 3600)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @RequestMapping("/v1/auth")
