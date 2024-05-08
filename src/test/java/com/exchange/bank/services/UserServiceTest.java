@@ -62,7 +62,7 @@ public class UserServiceTest {
 
         when(userRepository.findByUsername(username)).thenReturn(optionalUser);
 
-        Optional<User> result = userService.getUserByUsername(username);
+        Optional<User> result = userService.getUserDetailsByUsername(username);
 
         assertTrue(result.isPresent());
         assertEquals(optionalUser, result);

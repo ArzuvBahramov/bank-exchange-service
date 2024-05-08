@@ -72,7 +72,7 @@ public class ConversionServiceTest {
         exchangeRateTo.setRate(new BigDecimal("0.5"));
         ConversionRequest conversionRequest = new ConversionRequest("USD", "EUR", new BigDecimal("100"));
 
-        when(userService.getUserByUsername(username)).thenReturn(Optional.of(user));
+        when(userService.getUserDetailsByUsername(username)).thenReturn(Optional.of(user));
         when(exchangeRateService.findExchangeRate("USD")).thenReturn(exchangeRateFrom);
         when(exchangeRateService.findExchangeRate("EUR")).thenReturn(exchangeRateTo);
         when(conversionMapper.toDto(any(Conversion.class))).thenReturn(new ConversionDto(1L, null, null, new BigDecimal("100"), new BigDecimal("50"), LocalDate.now(), null));
@@ -81,7 +81,7 @@ public class ConversionServiceTest {
 
         assertNotNull(result);
         assertEquals(new BigDecimal("50"), result.toValue());
-        verify(userService).getUserByUsername(username);
+        verify(userService).getUserDetailsByUsername(username);
         verify(exchangeRateService).findExchangeRate("USD");
         verify(exchangeRateService).findExchangeRate("EUR");
         verify(conversionRepository).save(any(Conversion.class));
