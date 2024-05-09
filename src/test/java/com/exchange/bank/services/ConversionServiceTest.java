@@ -8,7 +8,7 @@ import com.exchange.bank.dao.specification.ConversionSpecification;
 import com.exchange.bank.dto.ConversionDto;
 import com.exchange.bank.dto.request.ConversionRequest;
 import com.exchange.bank.mapper.ConversionMapper;
-import com.exchange.bank.utils.CalculateUtil;
+import com.exchange.bank.utils.CalculateService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;

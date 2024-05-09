@@ -9,11 +9,11 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringJUnitConfig({CalculateUtil.class})
+@SpringJUnitConfig({CalculateService.class})
 @TestPropertySource(properties = {"DECIMAL_FORMAT=0.000"})
-public class CalculateUtilTest {
+public class CalculateServiceTest {
     @Autowired
-    private CalculateUtil calculateUtil;
+    private CalculateService calculateService;
 
     @Test
     public void testCalculate() {
@@ -23,7 +23,7 @@ public class CalculateUtilTest {
 
         BigDecimal expectedResult = new BigDecimal("133.333");
 
-        BigDecimal result = calculateUtil.calculate(fromValue, fromRate, toRate);
+        BigDecimal result = calculateService.calculate(fromValue, fromRate, toRate);
 
         assertEquals(expectedResult, result);
     }

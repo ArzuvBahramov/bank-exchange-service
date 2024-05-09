@@ -4,7 +4,7 @@ import com.exchange.bank.dto.request.LoginRequest;
 import com.exchange.bank.dto.request.LoginResponse;
 import com.exchange.bank.mapper.UserMapper;
 import com.exchange.bank.security.service.AuthDetailsService;
-import com.exchange.bank.security.util.TokenUtil;
+import com.exchange.bank.security.service.TokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import static com.exchange.bank.config.Constants.CLAIM_TOKEN_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -32,7 +33,7 @@ public class AuthServiceTest {
     @MockBean
     private AuthenticationManager authenticationManager;
     @MockBean
-    private TokenUtil tokenUtil;
+    private TokenService tokenService;
     @MockBean
     private AuthDetailsService userDetailsService;
     @MockBean
@@ -45,15 +46,15 @@ public class AuthServiceTest {
         LoginRequest loginRequest = new LoginRequest("user", "password");
         UserDetails userDetails = mock(UserDetails.class);
         when(userDetailsService.loadUserByUsername(loginRequest.username())).thenReturn(userDetails);
-        when(tokenUtil.generateToken(userDetails)).thenReturn("token");
+        when(tokenService.generateToken(userDetails)).thenReturn(CLAIM_TOKEN_NAME);
 
         LoginResponse result = authService.signIn(loginRequest);
 
         assertNotNull(result);
-        assertEquals("token", result.jwttoken());
+        assertEquals(CLAIM_TOKEN_NAME, result.jwttoken());
         verify(authenticationManager).authenticate(any());
         verify(userDetailsService).loadUserByUsername(loginRequest.username());
-        verify(tokenUtil).generateToken(userDetails);
+        verify(tokenService).generateToken(userDetails);
     }
 
     @Test
@@ -61,12 +62,12 @@ public class AuthServiceTest {
         HttpServletRequest request = mock(HttpServletRequest.class);
         Claims claims = Jwts.claims().setSubject("user123").build();
         when(request.getAttribute("claims")).thenReturn(claims);
-        when(tokenUtil.doGenerateToken(anyMap(), eq("user123"))).thenReturn("newRefreshToken");
+        when(tokenService.doGenerateToken(anyMap(), eq("user123"))).thenReturn("newRefreshToken");
 
         LoginResponse result = authService.createRefreshToken(request);
 
         assertNotNull(result);
         assertEquals("newRefreshToken", result.jwttoken());
-        verify(tokenUtil).doGenerateToken(anyMap(), eq("user123"));
+        verify(tokenService).doGenerateToken(anyMap(), eq("user123"));
     }
 }

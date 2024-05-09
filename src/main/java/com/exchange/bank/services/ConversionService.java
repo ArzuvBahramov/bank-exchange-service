@@ -8,7 +8,7 @@ import com.exchange.bank.dao.specification.ConversionSpecification;
 import com.exchange.bank.dto.ConversionDto;
 import com.exchange.bank.dto.request.ConversionRequest;
 import com.exchange.bank.mapper.ConversionMapper;
-import com.exchange.bank.utils.CalculateUtil;
+import com.exchange.bank.utils.CalculateService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
@@ -32,18 +32,18 @@ public class ConversionService {
     final ExchangeRateService exchangeRateService;
     final ConversionMapper conversionMapper;
     final UserService userService;
-    final CalculateUtil calculateUtil;
+    final CalculateService calculateService;
     final ConversionSpecification conversionSpecification;
 
-    public Page<ConversionDto> getHistory(String from,
-                                          String to,
-                                          String username,
-                                          LocalDate dateRequest,
-                                          Pageable pageable) {
+    public Page<ConversionDto> getHistory(Long id, Pageable pageable) {
+        if (Objects.isNull(id)) {
+            return conversionRepository.findAll(pageable)
+                    .map(conversionMapper::toDto);
+        }
 
-        Specification<Conversion> specification = conversionSpecification.getAllHistorySpecification(from, to, username, dateRequest);
-
-        return conversionRepository.findAll(specification, pageable).map(conversionMapper::toDto);
+        return conversionRepository.findAllByUser(
+                User.builder().id(id).build(), pageable)
+                .map(conversionMapper::toDto);
     }
 
     public ConversionDto convert(ConversionRequest conversionRequest) {
@@ -59,7 +59,7 @@ public class ConversionService {
         LocalDate rateDate = exchangeRateFrom.getRateDate();
 
         BigDecimal fromValue = conversionRequest.fromValue();
-        BigDecimal toValue = calculateUtil.calculate(fromValue, exchangeRateFrom.getRate(), exchangeRateTo.getRate());
+        BigDecimal toValue = calculateService.calculate(fromValue, exchangeRateFrom.getRate(), exchangeRateTo.getRate());
         Conversion conversion = Conversion.builder()
                 .fromExchange(exchangeRateFrom)
                 .toExchange(exchangeRateTo)

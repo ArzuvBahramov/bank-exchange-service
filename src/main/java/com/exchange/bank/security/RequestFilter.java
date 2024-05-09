@@ -1,7 +1,7 @@
 package com.exchange.bank.security;
 
 import com.exchange.bank.security.service.AuthDetailsService;
-import com.exchange.bank.security.util.TokenUtil;
+import com.exchange.bank.security.service.TokenService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -26,7 +26,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class RequestFilter extends OncePerRequestFilter {
     final AuthDetailsService authDetailsService;
-    final TokenUtil tokenUtil;
+    final TokenService tokenService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class RequestFilter extends OncePerRequestFilter {
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {
-                username = tokenUtil.getUsernameFromToken(jwtToken);
+                username = tokenService.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
                 log.error("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
@@ -56,7 +56,7 @@ public class RequestFilter extends OncePerRequestFilter {
 
             UserDetails userDetails = this.authDetailsService.loadUserByUsername(username);
 
-            if (tokenUtil.validateToken(jwtToken, userDetails)) {
+            if (tokenService.validateToken(jwtToken, userDetails)) {
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());

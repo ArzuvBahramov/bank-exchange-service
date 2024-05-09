@@ -18,6 +18,17 @@ spring:
             readTimeout: 20000
           central-bank-api:
             url: https://www.ecb.europa.eu
+  graphql:
+    cors:
+      allow-credentials: true
+      max-age: 3600
+      exposed-headers: '*'
+      allowed-headers: '*'
+      allowed-methods: '*'
+      allowed-origins:
+        - http://localhost:4200
+      allowed-origin-patterns: /**
+
 springdoc:
   swagger-ui:
     path: /v1/swagger-ui/index.html

@@ -1,4 +1,4 @@
-package com.exchange.bank.security.util;
+package com.exchange.bank.security.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -18,10 +18,12 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
 
+import static com.exchange.bank.config.Constants.CLAIM_TOKEN_NAME;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @Component
-public class TokenUtil implements Serializable {
+public class TokenService implements Serializable {
 
     @Value("${jwt.token.validity}")
     Integer JWT_TOKEN_VALIDITY;
@@ -44,7 +46,7 @@ public class TokenUtil implements Serializable {
 
     public String getTokenIdFromToken(String token) {
         final Claims claims = getAllClaimsFromToken(token);
-        return claims.get("token").toString();
+        return claims.get(CLAIM_TOKEN_NAME).toString();
     }
 
     private Claims getAllClaimsFromToken(String token) {
@@ -67,7 +69,7 @@ public class TokenUtil implements Serializable {
 
     public String doGenerateToken(Map<String, Object> claims, String subject) {
         UUID uuid = UUID.randomUUID();
-        claims.put("token", uuid);
+        claims.put(CLAIM_TOKEN_NAME, uuid);
         return Jwts.builder().claims(claims).subject(subject).issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8))).compact();
