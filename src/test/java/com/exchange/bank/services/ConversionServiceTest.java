@@ -49,7 +49,7 @@ public class ConversionServiceTest {
     @MockBean
     private UserService userService;
     @MockBean
-    private CalculateUtil calculateUtil;
+    private CalculateService calculateService;
     @MockBean
     private ConversionSpecification conversionSpecification;
 

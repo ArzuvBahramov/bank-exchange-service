@@ -35,15 +35,15 @@ public class ConversionService {
     final CalculateService calculateService;
     final ConversionSpecification conversionSpecification;
 
-    public Page<ConversionDto> getHistory(Long id, Pageable pageable) {
-        if (Objects.isNull(id)) {
-            return conversionRepository.findAll(pageable)
-                    .map(conversionMapper::toDto);
-        }
+    public Page<ConversionDto> getHistory(String from,
+                                          String to,
+                                          String username,
+                                          LocalDate dateRequest,
+                                          Pageable pageable) {
 
-        return conversionRepository.findAllByUser(
-                User.builder().id(id).build(), pageable)
-                .map(conversionMapper::toDto);
+        Specification<Conversion> specification = conversionSpecification.getAllHistorySpecification(from, to, username, dateRequest);
+
+        return conversionRepository.findAll(specification, pageable).map(conversionMapper::toDto);
     }
 
     public ConversionDto convert(ConversionRequest conversionRequest) {
