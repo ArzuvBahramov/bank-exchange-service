@@ -4,12 +4,12 @@ import com.exchange.bank.dao.entities.Conversion;
 import com.exchange.bank.dao.entities.ExchangeRate;
 import com.exchange.bank.dao.entities.User;
 import com.exchange.bank.dao.repositories.ConversionRepository;
+import com.exchange.bank.dao.specification.ConversionSpecification;
 import com.exchange.bank.dto.ConversionDto;
 import com.exchange.bank.dto.request.ConversionRequest;
 import com.exchange.bank.mapper.ConversionMapper;
 import com.exchange.bank.utils.CalculateUtil;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.criteria.Join;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +36,7 @@ public class ConversionService {
     final ConversionMapper conversionMapper;
     final UserService userService;
     final CalculateUtil calculateUtil;
+    final ConversionSpecification conversionSpecification;
 
     public Page<ConversionDto> getHistory(String from,
                                           String to,
@@ -43,30 +44,9 @@ public class ConversionService {
                                           LocalDate dateRequest,
                                           Pageable pageable) {
 
-        Specification<Conversion> specification = Specification.where(((root, query, criteriaBuilder) -> {
-            Join<Conversion, User> conversionUserJoin = root.join("user");
-            return criteriaBuilder.equal(conversionUserJoin.get("username"), username);
-        }));
+        Specification<Conversion> specification = conversionSpecification.getAllHistorySpecification(from, to, username, dateRequest);
 
-        specification = specification.and(((root, query, criteriaBuilder) -> {
-            Join<Conversion, ExchangeRate> conversionUserJoin = root.join("fromExchange");
-            return criteriaBuilder.equal(conversionUserJoin.get("code"), from);
-        }));
-
-        specification = specification.and(((root, query, criteriaBuilder) -> {
-            Join<Conversion, ExchangeRate> conversionExchangeRateJoin = root.join("toExchange");
-            return criteriaBuilder.equal(conversionExchangeRateJoin.get("code"), to);
-        }));
-
-        specification = specification.and(((root, query, criteriaBuilder) -> {
-            return criteriaBuilder.equal(root.get("rateDate"), dateRequest);
-        }));
-
-//        Long userId = userService.getUserByUsername(username).id();
-//        Long fromId = exchangeRateService.findExchangeRate(from).getId();
-//        Long toId = exchangeRateService.findExchangeRate(from).getId();
-
-        return new PageImpl(List.of(conversionRepository.findAll(specification)
+        return new PageImpl(List.of(conversionRepository.findAll(specification, pageable)
                 .stream().map(conversionMapper::toDto).collect(Collectors.toSet())));
     }
 

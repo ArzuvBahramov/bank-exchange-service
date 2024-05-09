@@ -32,10 +32,10 @@ public class ConversionController {
     }
 
     @GetMapping("/history")
-    public ResponseEntity<Page<ConversionDto>> getHistoryConversions(@RequestParam String from,
-                                                                     @RequestParam String to,
-                                                                     @RequestParam String username,
-                                                                     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateRequest,
+    public ResponseEntity<Page<ConversionDto>> getHistoryConversions(@RequestParam(required = false) String from,
+                                                                     @RequestParam(required = false) String to,
+                                                                     @RequestParam(required = false) String username,
+                                                                     @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateRequest,
                                                                      Pageable pageable) {
         return ResponseEntity.ok(conversionService.getHistory(from, to, username, dateRequest, pageable));
     }
