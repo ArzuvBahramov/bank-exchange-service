@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CalculateUtil {
+public class CalculateService {
 
     @Value("${DECIMAL_FORMAT}")
     String DECIMAL_FORMAT;

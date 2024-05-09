@@ -7,7 +7,7 @@ import com.exchange.bank.dao.repositories.ConversionRepository;
 import com.exchange.bank.dto.ConversionDto;
 import com.exchange.bank.dto.request.ConversionRequest;
 import com.exchange.bank.mapper.ConversionMapper;
-import com.exchange.bank.utils.CalculateUtil;
+import com.exchange.bank.utils.CalculateService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -44,7 +44,7 @@ public class ConversionServiceTest {
     @MockBean
     private UserService userService;
     @MockBean
-    private CalculateUtil calculateUtil;
+    private CalculateService calculateService;
 
     @Test
     public void testGetHistory() {

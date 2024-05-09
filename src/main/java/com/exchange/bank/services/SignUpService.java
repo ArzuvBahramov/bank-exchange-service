@@ -5,6 +5,7 @@ import com.exchange.bank.dao.entities.User;
 import com.exchange.bank.dto.UserDto;
 import com.exchange.bank.dto.request.RegisterRequest;
 import com.exchange.bank.mapper.UserMapper;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,6 +22,7 @@ public class SignUpService {
     final UserService userService;
     final UserMapper userMapper;
 
+    @Transactional
     public UserDto singUp(RegisterRequest request) {
         User user = userMapper.toEntity(request);
         user.setPassword(passwordEncoder.encode(request.password()));
