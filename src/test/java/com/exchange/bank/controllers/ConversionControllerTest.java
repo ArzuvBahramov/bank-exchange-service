@@ -54,8 +54,17 @@ public class ConversionControllerTest {
     @Test
     @WithMockUser(username = "testUser")
     public void testGetHistoryConversions() throws Exception {
-        when(conversionService.getHistory(any(Long.class), any(Pageable.class))).thenReturn(mockCollectionOfConversions());
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/conversion/history/{id}", 1L)
+        when(conversionService.getHistory(any(String.class),
+                any(String.class),
+                any(String.class),
+                any(LocalDate.class),
+                any(Pageable.class))).thenReturn(mockCollectionOfConversions());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/conversion/history")
+                        .param("from", "USD")
+                        .param("to", "AUD")
+                        .param("username", "testUser")
+                        .param("dateRequest", "2024-06-04")
                         .param("page", "0")
                         .param("size", "10")
                         .param("sort", "id,desc"))

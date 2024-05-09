@@ -15,7 +15,6 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,8 +22,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
@@ -46,8 +43,7 @@ public class ConversionService {
 
         Specification<Conversion> specification = conversionSpecification.getAllHistorySpecification(from, to, username, dateRequest);
 
-        return new PageImpl(List.of(conversionRepository.findAll(specification, pageable)
-                .stream().map(conversionMapper::toDto).collect(Collectors.toSet())));
+        return conversionRepository.findAll(specification, pageable).map(conversionMapper::toDto);
     }
 
     public ConversionDto convert(ConversionRequest conversionRequest) {

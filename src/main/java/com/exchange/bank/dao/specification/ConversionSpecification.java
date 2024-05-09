@@ -19,22 +19,22 @@ public class ConversionSpecification {
         Specification<Conversion> specification = Specification.where(null);
         if (Objects.nonNull(from) && !from.isEmpty()) {
             specification = specification.and(((root, query, criteriaBuilder) -> {
-                Join<Conversion, User> conversionUserJoin = root.join("user");
-                return criteriaBuilder.equal(conversionUserJoin.get("username"), username);
+                Join<Conversion, ExchangeRate> conversionUserJoin = root.join("fromExchange");
+                return criteriaBuilder.equal(conversionUserJoin.get("code"), from.toUpperCase());
             }));
         }
 
         if (Objects.nonNull(to) && !to.isEmpty()) {
             specification = specification.and(((root, query, criteriaBuilder) -> {
-                Join<Conversion, ExchangeRate> conversionUserJoin = root.join("fromExchange");
-                return criteriaBuilder.equal(conversionUserJoin.get("code"), from);
+                Join<Conversion, ExchangeRate> conversionExchangeRateJoin = root.join("toExchange");
+                return criteriaBuilder.equal(conversionExchangeRateJoin.get("code"), to.toUpperCase());
             }));
         }
 
         if (Objects.nonNull(username) && !username.isEmpty()) {
             specification = specification.and(((root, query, criteriaBuilder) -> {
-                Join<Conversion, ExchangeRate> conversionExchangeRateJoin = root.join("toExchange");
-                return criteriaBuilder.equal(conversionExchangeRateJoin.get("code"), to);
+                Join<Conversion, User> conversionUserJoin = root.join("user");
+                return criteriaBuilder.equal(conversionUserJoin.get("username"), username);
             }));
         }
 

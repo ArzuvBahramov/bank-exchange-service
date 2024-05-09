@@ -23,12 +23,12 @@ public class UserController {
     final UserService userService;
 
     @GetMapping()
-    public ResponseEntity<Page<UserDto>> createRefreshToken(Pageable pageable) {
+    public ResponseEntity<Page<UserDto>> getAllUsers(Pageable pageable) {
         return ResponseEntity.ok(userService.getAllUsers(pageable));
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<UserDto> createRefreshToken(@PathVariable String username) {
+    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username) {
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }
 }
