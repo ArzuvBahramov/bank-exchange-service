@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -71,7 +72,7 @@ public class ConversionControllerTest {
     }
 
     private static ConversionDto mockConversion() {
-        return new ConversionDto(1L, null, null, new BigDecimal("100"), new BigDecimal("50"), LocalDate.now(), null);
+        return new ConversionDto(1L, null, null, new BigDecimal("100"), new BigDecimal("50"), LocalDate.now(), null, LocalDateTime.now());
     }
 
     private static Page<ConversionDto> mockCollectionOfConversions() {

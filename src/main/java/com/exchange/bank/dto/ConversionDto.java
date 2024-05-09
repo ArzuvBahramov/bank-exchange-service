@@ -2,6 +2,7 @@ package com.exchange.bank.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public record ConversionDto (
         Long id,
@@ -10,6 +11,7 @@ public record ConversionDto (
         BigDecimal fromValue,
         BigDecimal toValue,
         LocalDate rateDate,
-        UserDto user
+        UserDto user,
+        LocalDateTime createdAt
 ) {
 }

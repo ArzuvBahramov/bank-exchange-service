@@ -20,6 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -75,7 +76,7 @@ public class ConversionServiceTest {
         when(userService.getUserDetailsByUsername(username)).thenReturn(Optional.of(user));
         when(exchangeRateService.findExchangeRate("USD")).thenReturn(exchangeRateFrom);
         when(exchangeRateService.findExchangeRate("EUR")).thenReturn(exchangeRateTo);
-        when(conversionMapper.toDto(any(Conversion.class))).thenReturn(new ConversionDto(1L, null, null, new BigDecimal("100"), new BigDecimal("50"), LocalDate.now(), null));
+        when(conversionMapper.toDto(any(Conversion.class))).thenReturn(new ConversionDto(1L, null, null, new BigDecimal("100"), new BigDecimal("50"), LocalDate.now(), null, LocalDateTime.now()));
 
         ConversionDto result = conversionService.convert(conversionRequest);
 
