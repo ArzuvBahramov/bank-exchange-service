@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -53,8 +54,17 @@ public class ConversionControllerTest {
     @Test
     @WithMockUser(username = "testUser")
     public void testGetHistoryConversions() throws Exception {
-        when(conversionService.getHistory(any(Long.class), any(Pageable.class))).thenReturn(mockCollectionOfConversions());
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/conversion/history/{id}", 1L)
+        when(conversionService.getHistory(any(String.class),
+                any(String.class),
+                any(String.class),
+                any(LocalDate.class),
+                any(Pageable.class))).thenReturn(mockCollectionOfConversions());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/conversion/history")
+                        .param("from", "USD")
+                        .param("to", "AUD")
+                        .param("username", "testUser")
+                        .param("dateRequest", "2024-06-04")
                         .param("page", "0")
                         .param("size", "10")
                         .param("sort", "id,desc"))
@@ -71,7 +81,7 @@ public class ConversionControllerTest {
     }
 
     private static ConversionDto mockConversion() {
-        return new ConversionDto(1L, null, null, new BigDecimal("100"), new BigDecimal("50"), LocalDate.now(), null);
+        return new ConversionDto(1L, null, null, new BigDecimal("100"), new BigDecimal("50"), LocalDate.now(), null, LocalDateTime.now());
     }
 
     private static Page<ConversionDto> mockCollectionOfConversions() {

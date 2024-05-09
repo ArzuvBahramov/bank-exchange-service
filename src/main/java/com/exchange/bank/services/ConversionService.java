@@ -4,6 +4,7 @@ import com.exchange.bank.dao.entities.Conversion;
 import com.exchange.bank.dao.entities.ExchangeRate;
 import com.exchange.bank.dao.entities.User;
 import com.exchange.bank.dao.repositories.ConversionRepository;
+import com.exchange.bank.dao.specification.ConversionSpecification;
 import com.exchange.bank.dto.ConversionDto;
 import com.exchange.bank.dto.request.ConversionRequest;
 import com.exchange.bank.mapper.ConversionMapper;
@@ -15,12 +16,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
@@ -32,16 +33,17 @@ public class ConversionService {
     final ConversionMapper conversionMapper;
     final UserService userService;
     final CalculateService calculateService;
+    final ConversionSpecification conversionSpecification;
 
-    public Page<ConversionDto> getHistory(Long id, Pageable pageable) {
-        if (Objects.isNull(id)) {
-            return conversionRepository.findAll(pageable)
-                    .map(conversionMapper::toDto);
-        }
+    public Page<ConversionDto> getHistory(String from,
+                                          String to,
+                                          String username,
+                                          LocalDate dateRequest,
+                                          Pageable pageable) {
 
-        return conversionRepository.findAllByUser(
-                User.builder().id(id).build(), pageable)
-                .map(conversionMapper::toDto);
+        Specification<Conversion> specification = conversionSpecification.getAllHistorySpecification(from, to, username, dateRequest);
+
+        return conversionRepository.findAll(specification, pageable).map(conversionMapper::toDto);
     }
 
     public ConversionDto convert(ConversionRequest conversionRequest) {

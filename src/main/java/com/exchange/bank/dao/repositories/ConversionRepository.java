@@ -1,13 +1,17 @@
 package com.exchange.bank.dao.repositories;
 
 import com.exchange.bank.dao.entities.Conversion;
-import com.exchange.bank.dao.entities.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ConversionRepository extends JpaRepository<Conversion, Long> {
-    Page<Conversion> findAllByUser(User user, Pageable pageable);
+public interface ConversionRepository extends JpaRepository<Conversion, Long>, JpaSpecificationExecutor<Conversion> {
+
+//    @Query("select * from conversion where user_id = :id and from_exchange_id = :from and to_exchange_id = :to and created_at = :date_request")
+//    Page<Conversion> findAll(Long from,
+//                             Long to,
+//                             Long id,
+//                             LocalDate dateRequest,
+//                             Pageable pageable);
 }
