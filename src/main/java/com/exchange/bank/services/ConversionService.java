@@ -7,7 +7,7 @@ import com.exchange.bank.dao.repositories.ConversionRepository;
 import com.exchange.bank.dto.ConversionDto;
 import com.exchange.bank.dto.request.ConversionRequest;
 import com.exchange.bank.mapper.ConversionMapper;
-import com.exchange.bank.utils.CalculateUtil;
+import com.exchange.bank.utils.CalculateService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
@@ -31,7 +31,7 @@ public class ConversionService {
     final ExchangeRateService exchangeRateService;
     final ConversionMapper conversionMapper;
     final UserService userService;
-    final CalculateUtil calculateUtil;
+    final CalculateService calculateService;
 
     public Page<ConversionDto> getHistory(Long id, Pageable pageable) {
         if (Objects.isNull(id)) {
@@ -57,7 +57,7 @@ public class ConversionService {
         LocalDate rateDate = exchangeRateFrom.getRateDate();
 
         BigDecimal fromValue = conversionRequest.fromValue();
-        BigDecimal toValue = calculateUtil.calculate(fromValue, exchangeRateFrom.getRate(), exchangeRateTo.getRate());
+        BigDecimal toValue = calculateService.calculate(fromValue, exchangeRateFrom.getRate(), exchangeRateTo.getRate());
         Conversion conversion = Conversion.builder()
                 .fromExchange(exchangeRateFrom)
                 .toExchange(exchangeRateTo)
