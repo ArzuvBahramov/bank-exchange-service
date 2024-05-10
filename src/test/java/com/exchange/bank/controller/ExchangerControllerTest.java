@@ -41,7 +41,7 @@ public class ExchangerControllerTest {
     @Test
     @WithMockUser(username = "testUser")
     public void getExchangersTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/exchanger")
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/exchangers")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf()))
                 .andExpect(status().isOk())

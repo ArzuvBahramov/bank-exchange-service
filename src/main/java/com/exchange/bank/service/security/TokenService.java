@@ -1,4 +1,4 @@
-package com.exchange.bank.security.service;
+package com.exchange.bank.service.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
 
-import static com.exchange.bank.config.Constants.CLAIM_TOKEN_NAME;
+import static com.exchange.bank.utils.Constants.CLAIM_TOKEN_NAME;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor

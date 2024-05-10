@@ -1,4 +1,4 @@
-package com.exchange.bank.config;
+package com.exchange.bank.utils;
 
 public interface Constants {
     String CLAIM_TOKEN_NAME = "token";

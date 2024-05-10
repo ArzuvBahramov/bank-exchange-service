@@ -26,11 +26,13 @@ public class UserController {
 
     @GetMapping()
     public ResponseEntity<Page<UserDto>> getAllUsers(Pageable pageable) {
-        return ResponseEntity.ok(userService.getAllUsers(pageable));
+        Page<UserDto> users = userService.getAllUsers(pageable);
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{username}")
     public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username) {
-        return ResponseEntity.ok(userService.getUserByUsername(username));
+        UserDto user = userService.getUserByUsername(username);
+        return ResponseEntity.ok(user);
     }
 }

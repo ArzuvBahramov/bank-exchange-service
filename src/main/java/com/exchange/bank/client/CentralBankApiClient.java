@@ -1,4 +1,4 @@
-package com.exchange.bank.centralbankapi;
+package com.exchange.bank.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
