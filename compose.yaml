@@ -1,0 +1,31 @@
+
+services:
+  postgres:
+    image: postgres
+    container_name: ${COMPOSE_PROJECT_NAME}_postgres
+    environment:
+      POSTGRES_DB: bank_exchange
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - dev_net
+
+  app:
+    container_name: ${COMPOSE_PROJECT_NAME}_app
+    build:
+      context: ./
+    networks:
+      - dev_net
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASS: postgres
+    ports:
+      - "127.0.0.1:8080:8080"
+
+networks:
+  dev_net:
+    name: ${COMPOSE_PROJECT_NAME}_network
