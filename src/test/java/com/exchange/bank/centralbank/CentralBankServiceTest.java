@@ -1,7 +1,7 @@
 package com.exchange.bank.centralbank;
 
 import com.exchange.bank.centralbankapi.CentralBankApiClient;
-import com.exchange.bank.centralbankapi.CentralBankService;
+import com.exchange.bank.service.CentralBankService;
 import com.exchange.bank.dao.entity.ExchangeRate;
 import com.exchange.bank.mapper.ExchangerXmlFileMapper;
 import org.junit.jupiter.api.Test;
