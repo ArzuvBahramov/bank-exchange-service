@@ -35,12 +35,12 @@ public class SecurityConfig {
     };
 
     @Bean
-    PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception -> exception
@@ -56,12 +56,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    WebSecurityCustomizer webSecurityCustomizer() {
+    public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/images/**");
     }
 
     @Bean
-    DaoAuthenticationProvider authenticationProvider() {
+    public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
         authProvider.setUserDetailsService(userDetailsService);
@@ -71,7 +71,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration authConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfiguration) throws Exception {
         return authConfiguration.getAuthenticationManager();
     }
 }

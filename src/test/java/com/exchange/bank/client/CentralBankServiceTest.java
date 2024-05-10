@@ -1,6 +1,5 @@
-package com.exchange.bank.centralbank;
+package com.exchange.bank.client;
 
-import com.exchange.bank.centralbankapi.CentralBankApiClient;
 import com.exchange.bank.service.CentralBankService;
 import com.exchange.bank.dao.entity.ExchangeRate;
 import com.exchange.bank.mapper.ExchangerXmlFileMapper;

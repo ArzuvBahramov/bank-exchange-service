@@ -12,9 +12,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -25,6 +27,8 @@ import java.time.LocalDate;
 @Entity
 @Setter
 @Getter
+@ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,6 +38,7 @@ import java.time.LocalDate;
 public class Conversion extends Auditor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     Long id;
 
     @ManyToOne(cascade = {CascadeType.ALL})

@@ -42,4 +42,6 @@ jwt:
   secret: The sun has hidden behind the clouds, but the stars still shine in the heavens.
   token:
     validity: 120000
-DECIMAL_FORMAT: 0.000
+decimal:
+  format: 0.000
+  scale: 10

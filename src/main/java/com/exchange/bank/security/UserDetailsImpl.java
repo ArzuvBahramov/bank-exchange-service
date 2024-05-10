@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Setter
 @Getter
+@ToString
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
@@ -55,21 +57,21 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return Boolean.TRUE;
     }
 }

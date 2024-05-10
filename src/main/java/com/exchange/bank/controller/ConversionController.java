@@ -30,7 +30,8 @@ public class ConversionController {
 
     @PostMapping("/convert")
     public ResponseEntity<ConversionDto> convert(@RequestBody ConversionRequest request) {
-        return ResponseEntity.ok(conversionService.convert(request));
+        ConversionDto conversion = conversionService.convert(request);
+        return ResponseEntity.ok(conversion);
     }
 
     @GetMapping("/history")
@@ -39,6 +40,7 @@ public class ConversionController {
                                                                      @RequestParam(required = false) String username,
                                                                      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateRequest,
                                                                      Pageable pageable) {
-        return ResponseEntity.ok(conversionService.getHistory(from, to, username, dateRequest, pageable));
+        Page<ConversionDto> conversions = conversionService.getHistory(from, to, username, dateRequest, pageable);
+        return ResponseEntity.ok(conversions);
     }
 }

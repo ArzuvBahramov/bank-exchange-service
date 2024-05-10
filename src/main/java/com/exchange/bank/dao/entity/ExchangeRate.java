@@ -9,9 +9,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -22,6 +24,8 @@ import java.time.LocalDate;
 @Entity
 @Setter
 @Getter
+@ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
@@ -30,6 +34,7 @@ import java.time.LocalDate;
 @EntityListeners(AuditingEntityListener.class)
 public class ExchangeRate extends Auditor {
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 

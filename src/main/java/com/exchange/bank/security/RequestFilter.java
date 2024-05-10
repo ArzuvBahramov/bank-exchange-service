@@ -1,7 +1,7 @@
 package com.exchange.bank.security;
 
-import com.exchange.bank.security.service.AuthDetailsService;
-import com.exchange.bank.security.service.TokenService;
+import com.exchange.bank.service.security.AuthDetailsService;
+import com.exchange.bank.service.security.TokenService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

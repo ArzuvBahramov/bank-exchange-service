@@ -13,11 +13,13 @@ import java.text.DecimalFormat;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CalculateService {
 
-    @Value("${DECIMAL_FORMAT}")
+    @Value("${decimal.format}")
     String DECIMAL_FORMAT;
+    @Value("${decimal.scale}")
+    Integer DECIMAL_SCALE;
 
     public BigDecimal calculate(BigDecimal fromValue, BigDecimal fromRate, BigDecimal toRate) {
-        BigDecimal result = fromValue.divide(fromRate, 10, RoundingMode.HALF_UP).multiply(toRate);
+        BigDecimal result = fromValue.divide(fromRate, DECIMAL_SCALE, RoundingMode.HALF_UP).multiply(toRate);
         DecimalFormat decimalFormat = new DecimalFormat(DECIMAL_FORMAT);
         return new BigDecimal(decimalFormat.format(result));
     }
