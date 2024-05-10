@@ -7,8 +7,10 @@ COPY gradle gradle
 COPY build.gradle .
 COPY settings.gradle .
 
-RUN apt-get update && apt-get install -y dos2unix && dos2unix gradlew
-RUN find ./ -name "*.java" | xargs dos2unix
+RUN set -xe \
+    && apt-get update && apt-get install -y dos2unix \
+    && dos2unix gradlew \
+    && find ./ -name "*.java" | xargs dos2unix
 
 COPY src src
 
