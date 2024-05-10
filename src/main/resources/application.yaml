@@ -33,6 +33,9 @@ springdoc:
     path: /v1/swagger-ui/index.html
   api-docs:
     path: /v1/swagger-ui/api-docs
+  securitySchemeName: bearerAuth
+  securityScheme: bearer
+  bearerFormat: JWT
 exchange:
   cron: 0 0 17 ? * *
 jwt:

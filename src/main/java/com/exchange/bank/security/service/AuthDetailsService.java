@@ -1,7 +1,7 @@
 package com.exchange.bank.security.service;
 
-import com.exchange.bank.dao.entities.User;
-import com.exchange.bank.dao.repositories.UserRepository;
+import com.exchange.bank.dao.entity.User;
+import com.exchange.bank.dao.repository.UserRepository;
 import com.exchange.bank.security.UserDetailsImpl;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;

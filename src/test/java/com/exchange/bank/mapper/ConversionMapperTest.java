@@ -1,8 +1,8 @@
 package com.exchange.bank.mapper;
 
-import com.exchange.bank.dao.entities.Conversion;
-import com.exchange.bank.dao.entities.ExchangeRate;
-import com.exchange.bank.dao.entities.User;
+import com.exchange.bank.dao.entity.Conversion;
+import com.exchange.bank.dao.entity.ExchangeRate;
+import com.exchange.bank.dao.entity.User;
 import com.exchange.bank.dto.ConversionDto;
 import com.exchange.bank.dto.ExchangeRateDto;
 import com.exchange.bank.dto.UserDto;

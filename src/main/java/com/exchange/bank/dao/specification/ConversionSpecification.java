@@ -1,8 +1,8 @@
 package com.exchange.bank.dao.specification;
 
-import com.exchange.bank.dao.entities.Conversion;
-import com.exchange.bank.dao.entities.ExchangeRate;
-import com.exchange.bank.dao.entities.User;
+import com.exchange.bank.dao.entity.Conversion;
+import com.exchange.bank.dao.entity.ExchangeRate;
+import com.exchange.bank.dao.entity.User;
 import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
@@ -39,9 +39,7 @@ public class ConversionSpecification {
         }
 
         if (Objects.nonNull(dateRequest)) {
-            specification = specification.and(((root, query, criteriaBuilder) -> {
-                return criteriaBuilder.equal(root.get("rateDate"), dateRequest);
-            }));
+            specification = specification.and(((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("rateDate"), dateRequest)));
         }
 
         return specification;
