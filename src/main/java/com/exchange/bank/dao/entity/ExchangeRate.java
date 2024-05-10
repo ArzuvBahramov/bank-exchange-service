@@ -39,6 +39,7 @@ public class ExchangeRate extends Auditor {
     Long id;
 
     @Column
+    @EqualsAndHashCode.Include
     String code;
 
     @Column
