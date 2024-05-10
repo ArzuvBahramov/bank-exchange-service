@@ -1,6 +1,6 @@
 package com.exchange.bank.mapper;
 
-import com.exchange.bank.dao.entities.ExchangeRate;
+import com.exchange.bank.dao.entity.ExchangeRate;
 import com.exchange.bank.dto.centralbankapi.Envelope;
 import com.exchange.bank.dto.centralbankapi.TimeCube;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;

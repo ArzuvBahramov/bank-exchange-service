@@ -1,6 +1,6 @@
 package com.exchange.bank.security;
 
-import com.exchange.bank.dao.entities.User;
+import com.exchange.bank.dao.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
