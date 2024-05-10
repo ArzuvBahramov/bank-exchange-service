@@ -53,7 +53,7 @@ public class ConversionService {
         User user = userService.getUserDetailsByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("User: %s is not found".formatted(username)));
 
-        ExchangeRate exchangeRateFrom = exchangeRateService.findExchangeRate(conversionRequest.currencyFro());
+        ExchangeRate exchangeRateFrom = exchangeRateService.findExchangeRate(conversionRequest.currencyFrom());
         ExchangeRate exchangeRateTo = exchangeRateService.findExchangeRate(conversionRequest.currencyTo());;
 
         LocalDate rateDate = exchangeRateFrom.getRateDate();
