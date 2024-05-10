@@ -1,12 +1,11 @@
-package com.exchange.bank.service;
+package com.exchange.bank.service.security;
 
 import com.exchange.bank.dao.entity.User;
 import com.exchange.bank.dto.UserDto;
 import com.exchange.bank.dto.request.LoginRequest;
 import com.exchange.bank.dto.request.LoginResponse;
 import com.exchange.bank.mapper.UserMapper;
-import com.exchange.bank.security.service.AuthDetailsService;
-import com.exchange.bank.security.service.TokenService;
+import com.exchange.bank.service.UserService;
 import io.jsonwebtoken.impl.DefaultClaims;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
@@ -27,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.exchange.bank.config.Constants.CLAIM_ATTRIBUTE_NAME;
+import static com.exchange.bank.utils.Constants.CLAIM_ATTRIBUTE_NAME;
 
 @Slf4j
 @CrossOrigin

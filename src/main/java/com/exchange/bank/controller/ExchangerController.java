@@ -17,14 +17,14 @@ import java.util.Set;
 @RequiredArgsConstructor
 @CrossOrigin
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@RequestMapping("/v1/exchanger")
+@RequestMapping("/v1/exchangers")
 public class ExchangerController {
     final ExchangeRateService exchangeRateService;
 
     @GetMapping()
     public ResponseEntity<Set<ExchangeRateDto>> getExchangers() {
-
-        return ResponseEntity.ok(exchangeRateService.findAllExchangers());
+        Set<ExchangeRateDto> exchangeRates = exchangeRateService.findAllExchangers();
+        return ResponseEntity.ok(exchangeRates);
     }
 
 }

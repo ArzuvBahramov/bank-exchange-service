@@ -4,7 +4,7 @@ import com.exchange.bank.dto.UserDto;
 import com.exchange.bank.dto.request.LoginRequest;
 import com.exchange.bank.dto.request.LoginResponse;
 import com.exchange.bank.dto.request.RegisterRequest;
-import com.exchange.bank.service.AuthService;
+import com.exchange.bank.service.security.AuthService;
 import com.exchange.bank.service.SignUpService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
@@ -33,22 +33,26 @@ public class AuthController {
     @PostMapping("/sign-in")
     @SneakyThrows
     public ResponseEntity<LoginResponse> signIn(@RequestBody LoginRequest loginRequest) {
-        return ResponseEntity.ok(authService.signIn(loginRequest));
+        LoginResponse loginResponse = authService.signIn(loginRequest);
+        return ResponseEntity.ok(loginResponse);
     }
 
     @PostMapping("/sign-up")
     public ResponseEntity<UserDto> signUp(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(signUpService.singUp(request));
+        UserDto user = signUpService.singUp(request);
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/refresh-token")
     public ResponseEntity<?> createRefreshToken(HttpServletRequest request) {
-        return ResponseEntity.ok(authService.createRefreshToken(request));
+        LoginResponse response = authService.createRefreshToken(request);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "/api/details")
     public ResponseEntity<?> getDetails() {
-        return ResponseEntity.ok(authService.getUserDetails());
+        UserDto userDetails = authService.getUserDetails();
+        return ResponseEntity.ok(userDetails);
     }
 
 }

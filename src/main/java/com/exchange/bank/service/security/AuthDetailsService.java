@@ -1,4 +1,4 @@
-package com.exchange.bank.security.service;
+package com.exchange.bank.service.security;
 
 import com.exchange.bank.dao.entity.User;
 import com.exchange.bank.dao.repository.UserRepository;

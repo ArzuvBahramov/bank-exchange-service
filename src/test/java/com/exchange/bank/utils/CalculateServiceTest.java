@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringJUnitConfig({CalculateService.class})
-@TestPropertySource(properties = {"DECIMAL_FORMAT=0.000"})
+@TestPropertySource(properties = {"decimal.format=0.000", "decimal.scale=10"})
 public class CalculateServiceTest {
     @Autowired
     private CalculateService calculateService;

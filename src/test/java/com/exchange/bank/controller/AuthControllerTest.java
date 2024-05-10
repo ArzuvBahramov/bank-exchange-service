@@ -4,7 +4,7 @@ import com.exchange.bank.dto.UserDto;
 import com.exchange.bank.dto.request.LoginRequest;
 import com.exchange.bank.dto.request.LoginResponse;
 import com.exchange.bank.dto.request.RegisterRequest;
-import com.exchange.bank.service.AuthService;
+import com.exchange.bank.service.security.AuthService;
 import com.exchange.bank.service.SignUpService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
