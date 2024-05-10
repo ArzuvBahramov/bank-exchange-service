@@ -1,6 +1,5 @@
 package com.exchange.bank.service;
 
-import com.exchange.bank.centralbankapi.CentralBankService;
 import com.exchange.bank.dao.entity.ExchangeRate;
 import com.exchange.bank.dao.repository.ExchangeRateRepository;
 import com.exchange.bank.dto.ExchangeRateDto;

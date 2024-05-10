@@ -1,5 +1,6 @@
-package com.exchange.bank.centralbankapi;
+package com.exchange.bank.service;
 
+import com.exchange.bank.centralbankapi.CentralBankApiClient;
 import com.exchange.bank.dao.entity.ExchangeRate;
 import com.exchange.bank.mapper.ExchangerXmlFileMapper;
 import lombok.AccessLevel;
